@@ -14,23 +14,14 @@
 # limitations under the License.
 #
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+# common judyln
+$(call inherit-product, device/lge/judyln-common/judyln-common.mk)
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o_mr1.mk)
+PRODUCT_SOONG_NAMESPACES += \
+	$(DEVICE_PATH)
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
-# Inherit from judyln device
-$(call inherit-product, device/lge/judyln/device.mk)
-
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lmodroid/config/common_full_phone.mk)
-
-# Overlays (inherit after vendor/cm to ensure we override it)
-DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+# Get non-open-source specific aspects
+$(call inherit-product, vendor/lge/judyln/judyln-vendor.mk)
 
 # Device identifiers
 PRODUCT_NAME := lmodroid_judyln
